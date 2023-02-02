@@ -16,11 +16,14 @@ import java.util.concurrent.Callable;
 class App   {
 //    implements Callable<Integer>
 
-//    @Parameters(index = "0", description = "The file whose checksum to calculate.")
-//    private File file;
-//
-//    @Option(names = {"-a", "--algorithm"}, description = "MD5, SHA-1, SHA-256, ...")
-//    private String algorithm = "SHA-256";
+    @Parameters(paramLabel = "filepath1", description = "path to first file")
+    private File file1;
+
+    @Parameters(paramLabel = "filepath2", description = "path to second file")
+    private File file2;
+
+    @Option(names = {"-f", "--format"}, paramLabel = "format", description = "output format [default: stylish]")
+    private String format = "stylish";
 //
 //    @Override
 //    public Integer call() throws Exception { // your business logic goes here...
