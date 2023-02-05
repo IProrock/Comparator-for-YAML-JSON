@@ -8,33 +8,37 @@ import picocli.CommandLine.Parameters;
 import java.io.File;
 import java.math.BigInteger;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.util.concurrent.Callable;
 
 @Command(name = "gendif", mixinStandardHelpOptions = true, version = "gendif v1.0",
         description = "Compares two configuration files and shows a difference.")
-class App   {
-//    implements Callable<Integer>
+class App implements Callable<String>  {
+
 
     @Parameters(paramLabel = "filepath1", description = "path to first file")
-    private File file1;
+    private String file1;
 
     @Parameters(paramLabel = "filepath2", description = "path to second file")
-    private File file2;
+    private String file2;
 
     @Option(names = {"-f", "--format"}, paramLabel = "format", description = "output format [default: stylish]")
     private String format = "stylish";
-//
-//    @Override
-//    public Integer call() throws Exception { // your business logic goes here...
-//        byte[] fileContents = Files.readAllBytes(file.toPath());
-//        byte[] digest = MessageDigest.getInstance(algorithm).digest(fileContents);
-//        System.out.printf("%0" + (digest.length*2) + "x%n", new BigInteger(1, digest));
-//        return 0;
-//    }
 
-    // this example implements Callable, so parsing, error handling and handling user
-    // requests for usage help or version help can be done with one line of code.
+    @Override
+    public String call() throws Exception { // your business logic goes here...
+        Path pathToFile1 = Paths.get(file1).toAbsolutePath().normalize();
+        Path pathToFile2 = Paths.get(file2).toAbsolutePath().normalize();
+        String result = Differ.generate(pathToFile1, pathToFile2);
+
+        System.out.println(result);
+
+        return result;
+    }
+
+
     public static void main(String... args) {
         int exitCode = new CommandLine(new App()).execute(args);
         System.exit(exitCode);
