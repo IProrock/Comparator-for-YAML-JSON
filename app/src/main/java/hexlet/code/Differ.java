@@ -1,16 +1,19 @@
 package hexlet.code;
 
-import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.HashMap;
+import java.util.TreeSet;
+import java.util.Map;
+import java.util.StringJoiner;
+import java.util.Set;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Differ {
 
-    public static String generate  (Path pathToFile1, Path pathToFile2) throws Exception {
+    public static String generate(Path pathToFile1, Path pathToFile2) throws Exception {
         String result = "";
         if (!Files.exists(pathToFile1)) {
             throw new Exception("File " + pathToFile1 + " doesn't exist.");
@@ -26,8 +29,8 @@ public class Differ {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        map1 = mapper.readValue(pathToFile1.toFile(), new TypeReference<Map<String,String>>(){});
-        map2 = mapper.readValue(pathToFile2.toFile(), new TypeReference<Map<String,String>>(){});
+        map1 = mapper.readValue(pathToFile1.toFile(), new TypeReference<Map<String, String>>() { });
+        map2 = mapper.readValue(pathToFile2.toFile(), new TypeReference<Map<String, String>>() { });
         keys.addAll(map1.keySet());
         keys.addAll(map2.keySet());
 
