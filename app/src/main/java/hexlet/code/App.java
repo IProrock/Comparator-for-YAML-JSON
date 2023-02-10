@@ -5,8 +5,6 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.concurrent.Callable;
 
 @Command(name = "gendif", mixinStandardHelpOptions = true, version = "gendif v1.0",
@@ -25,9 +23,8 @@ class App implements Callable<String>  {
 
     @Override
     public String call() throws Exception { // your business logic goes here...
-        Path pathToFile1 = Paths.get(file1).toAbsolutePath().normalize();
-        Path pathToFile2 = Paths.get(file2).toAbsolutePath().normalize();
-        String result = Differ.generate(pathToFile1, pathToFile2);
+
+        String result = Differ.generate(file1, file2);
 
         System.out.println(result);
 

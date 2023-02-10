@@ -2,19 +2,17 @@ package hexlet.code;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.TreeSet;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
-import java.util.StringJoiner;
-import java.util.Set;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Differ {
 
-    public static String generate(Path pathToFile1, Path pathToFile2) throws Exception {
+    public static String generate(String file1, String file2) throws Exception {
+        Path pathToFile1 = Paths.get(file1).toAbsolutePath().normalize();
+        Path pathToFile2 = Paths.get(file2).toAbsolutePath().normalize();
         String result = "";
+
         if (!Files.exists(pathToFile1)) {
             throw new Exception("File " + pathToFile1 + " doesn't exist.");
         }
@@ -22,34 +20,9 @@ public class Differ {
             throw new Exception("File " + pathToFile2 + " doesn't exist.");
         }
 
-        Map<String, String> map1 = new HashMap<>();
-        Map<String, String> map2 = new HashMap<>();
-        Set<String> keys = new TreeSet<>();
-        StringJoiner resultStringJoiner = new StringJoiner("\n", "{\n", "\n}");
+        List<Map<String, String>> parsedListOfMaps = Parser.parseToMap(pathToFile1, pathToFile2);
+        result = Comparer.compareMaps(parsedListOfMaps.get(0), parsedListOfMaps.get(1));
 
-        ObjectMapper mapper = new ObjectMapper();
-
-        map1 = mapper.readValue(pathToFile1.toFile(), new TypeReference<Map<String, String>>() { });
-        map2 = mapper.readValue(pathToFile2.toFile(), new TypeReference<Map<String, String>>() { });
-        keys.addAll(map1.keySet());
-        keys.addAll(map2.keySet());
-
-        for (String key : keys) {
-            if (!map1.containsKey(key)) {
-                resultStringJoiner.add("  + " + key + ": " + map2.get(key));
-            } else if (!map2.containsKey(key)) {
-                resultStringJoiner.add("  - " + key + ": " + map1.get(key));
-            } else {
-                if ((map1.get(key)).equals(map2.get(key))) {
-                    resultStringJoiner.add("    " + key + ": " + map1.get(key));
-                } else {
-                    resultStringJoiner.add("  - " + key + ": " + map1.get(key));
-                    resultStringJoiner.add("  + " + key + ": " + map2.get(key));
-                }
-            }
-        }
-
-        return resultStringJoiner.toString();
-
+        return result;
     }
 }
