@@ -8,9 +8,10 @@ import java.util.Map;
 
 public class Differ {
 
-    public static String generate(String file1, String file2) throws Exception {
+    public static String generate(String file1, String file2, String format) throws Exception {
         Path pathToFile1 = Paths.get(file1).toAbsolutePath().normalize();
         Path pathToFile2 = Paths.get(file2).toAbsolutePath().normalize();
+        Map<String, Object> comparedMap;
         String result = "";
 
         if (!Files.exists(pathToFile1)) {
@@ -20,8 +21,9 @@ public class Differ {
             throw new Exception("File " + pathToFile2 + " doesn't exist.");
         }
 
-        List<Map<String, String>> parsedListOfMaps = Parser.parseToMap(pathToFile1, pathToFile2);
-        result = Comparer.compareMaps(parsedListOfMaps.get(0), parsedListOfMaps.get(1));
+        List<Map<String, Object>> listOfParsedMaps = Parser.parseToMap(pathToFile1, pathToFile2);
+        comparedMap = Comparer.compareMaps(listOfParsedMaps.get(0), listOfParsedMaps.get(1));
+        result = Formater.getFormatedString(comparedMap, format);
 
         return result;
     }

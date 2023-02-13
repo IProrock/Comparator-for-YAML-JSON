@@ -11,11 +11,11 @@ import java.util.HashMap;
 import java.util.ArrayList;
 
 public class Parser {
-    public static List<Map<String, String>> parseToMap(Path pathToFile1, Path pathToFile2) throws Exception {
+    public static List<Map<String, Object>> parseToMap(Path pathToFile1, Path pathToFile2) throws Exception {
 
-        Map<String, String> map1 = new HashMap<>();
-        Map<String, String> map2 = new HashMap<>();
-        List<Map<String, String>> result = new ArrayList<Map<String, String>>();
+        Map<String, Object> map1 = new HashMap<>();
+        Map<String, Object> map2 = new HashMap<>();
+        List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
 
         ObjectMapper mapper = new ObjectMapper();
 
@@ -23,8 +23,8 @@ public class Parser {
             mapper = new YAMLMapper();
         }
 
-        map1 = mapper.readValue(pathToFile1.toFile(), new TypeReference<Map<String, String>>() { });
-        map2 = mapper.readValue(pathToFile2.toFile(), new TypeReference<Map<String, String>>() { });
+        map1 = mapper.readValue(pathToFile1.toFile(), new TypeReference<Map<String, Object>>() { });
+        map2 = mapper.readValue(pathToFile2.toFile(), new TypeReference<Map<String, Object>>() { });
         result.add(map1);
         result.add(map2);
 

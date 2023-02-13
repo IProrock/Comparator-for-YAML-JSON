@@ -18,13 +18,14 @@ class App implements Callable<String>  {
     @Parameters(paramLabel = "filepath2", description = "path to second file")
     private String file2;
 
-    @Option(names = {"-f", "--format"}, paramLabel = "format", description = "output format [default: stylish]")
-    private String format = "stylish";
+    @Option(names = {"-f", "--format"}, paramLabel = "format", defaultValue = "stylish",
+            description = "output format [default: stylish]")
+    private String format;
 
     @Override
-    public String call() throws Exception { // your business logic goes here...
+    public String call() throws Exception {
 
-        String result = Differ.generate(file1, file2);
+        String result = Differ.generate(file1, file2, format);
 
         System.out.println(result);
 
