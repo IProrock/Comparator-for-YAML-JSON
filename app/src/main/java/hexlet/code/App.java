@@ -9,7 +9,7 @@ import java.util.concurrent.Callable;
 
 @Command(name = "gendif", mixinStandardHelpOptions = true, version = "gendif v1.0",
         description = "Compares two configuration files and shows a difference.")
-class App implements Callable<String>  {
+public class App implements Callable<String>  {
 
 
     @Parameters(paramLabel = "filepath1", description = "path to first file")
