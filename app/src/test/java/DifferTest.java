@@ -50,6 +50,22 @@ public class DifferTest {
             Property 'setting2' was updated. From 200 to 300
             Property 'setting3' was updated. From true to 'none'""";
 
+    String expectedJson = "{\"chars1\":{\"Status\":\"unchanged\",\"Old value\":[\"a\",\"b\",\"c\"],"
+            + "\"New value\":[\"a\",\"b\",\"c\"]},\"chars2\":{\"Status\":\"changed\",\"Old value\":[\"d\",\"e\",\"f\"],"
+            + "\"New value\":false},\"checked\":{\"Status\":\"changed\",\"Old value\":false,\"New value\":true},"
+            + "\"default\":{\"Status\":\"changed\",\"Old value\":null,\"New value\":[\"value1\",\"value2\"]},"
+            + "\"id\":{\"Status\":\"changed\",\"Old value\":45,\"New value\":null},\"key1\":{\"Status\":\"removed\","
+            + "\"Old value\":\"value1\",\"New value\":null},\"key2\":{\"Status\":\"added\",\"Old value\":null,"
+            + "\"New value\":\"value2\"},\"numbers1\":{\"Status\":\"unchanged\",\"Old value\":[1,2,3,4],"
+            + "\"New value\":[1,2,3,4]},\"numbers2\":{\"Status\":\"changed\",\"Old value\":[2,3,4,5],"
+            + "\"New value\":[22,33,44,55]},\"numbers3\":{\"Status\":\"removed\",\"Old value\":[3,4,5],"
+            + "\"New value\":null},\"numbers4\":{\"Status\":\"added\",\"Old value\":null,\"New value\":[4,5,6]},"
+            + "\"obj1\":{\"Status\":\"added\",\"Old value\":null,"
+            + "\"New value\":{\"nestedKey\":\"value\",\"isNested\":true}},"
+            + "\"setting1\":{\"Status\":\"changed\",\"Old value\":\"Some value\","
+            + "\"New value\":\"Another value\"},\"setting2\":{\"Status\":\"changed\",\"Old value\":200,"
+            + "\"New value\":300},\"setting3\":{\"Status\":\"changed\",\"Old value\":true,\"New value\":\"none\"}}";
+
     @Test
     public void testJsonValidCase() throws Exception {
 
@@ -57,6 +73,7 @@ public class DifferTest {
         Path file2 = Paths.get("./src/test/resources/file2.json").toAbsolutePath().normalize();
         assertThat(Differ.generate(file1.toString(), file2.toString(), "stylish")).isEqualTo(expectedStylish);
         assertThat(Differ.generate(file1.toString(), file2.toString(), "plain")).isEqualTo(expectedPlain);
+        assertThat(Differ.generate(file1.toString(), file2.toString(), "json")).isEqualTo(expectedJson);
 
     }
 
@@ -66,16 +83,7 @@ public class DifferTest {
         Path file2 = Paths.get("./src/test/resources/file2.yml").toAbsolutePath().normalize();
         assertThat(Differ.generate(file1.toString(), file2.toString(), "stylish")).isEqualTo(expectedStylish);
         assertThat(Differ.generate(file1.toString(), file2.toString(), "plain")).isEqualTo(expectedPlain);
-    }
-
-    @Test
-    public void testExportToJson() throws Exception {
-        Path file1 = Paths.get("./src/test/resources/file1.yml").toAbsolutePath().normalize();
-        Path file2 = Paths.get("./src/test/resources/file2.yml").toAbsolutePath().normalize();
-        Path expectedOutputFile = Paths.get("./comparedJson/compared.json").toAbsolutePath().normalize();
-        Path coorectFile = Paths.get("./src/test/resources/expectedJson.json").toAbsolutePath().normalize();
-        String process = Differ.generate(file1.toString(), file2.toString(), "json");
-        assertThat(expectedOutputFile.toFile()).exists();
+        assertThat(Differ.generate(file1.toString(), file2.toString(), "json")).isEqualTo(expectedJson);
     }
 
 }
