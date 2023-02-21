@@ -12,7 +12,7 @@ public class Differ {
 
         Path pathToFile1 = Paths.get(file1).toAbsolutePath().normalize();
         Path pathToFile2 = Paths.get(file2).toAbsolutePath().normalize();
-        Map<String, List<Object>> comparedMap;
+        Map<String, Map<String, Object>> comparedMap;
         String result = "";
 
         if (!Files.exists(pathToFile1)) {
@@ -27,5 +27,9 @@ public class Differ {
         result = Formatter.getFormatedString(comparedMap, format);
 
         return result;
+    }
+
+    public static String generate(String file1, String file2) throws Exception {
+        return generate(file1, file2, "stylish");
     }
 }
