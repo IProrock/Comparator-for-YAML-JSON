@@ -12,7 +12,7 @@ public class Differ {
 
         Path pathToFile1 = Paths.get(file1).toAbsolutePath().normalize();
         Path pathToFile2 = Paths.get(file2).toAbsolutePath().normalize();
-        Map<String, List<Object>> comparedMap;
+        Map<String, Map<String, Object>> comparedMap;
         String result = "";
 
         if (!Files.exists(pathToFile1)) {

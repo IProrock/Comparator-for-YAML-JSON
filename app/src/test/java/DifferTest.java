@@ -68,4 +68,14 @@ public class DifferTest {
         assertThat(Differ.generate(file1.toString(), file2.toString(), "plain")).isEqualTo(expectedPlain);
     }
 
+    @Test
+    public void testExportToJson() throws Exception {
+        Path file1 = Paths.get("./src/test/resources/file1.yml").toAbsolutePath().normalize();
+        Path file2 = Paths.get("./src/test/resources/file2.yml").toAbsolutePath().normalize();
+        Path expectedOutputFile = Paths.get("./comparedJson/compared.json").toAbsolutePath().normalize();
+        Path coorectFile = Paths.get("./src/test/resources/expectedJson.json").toAbsolutePath().normalize();
+        String process = Differ.generate(file1.toString(), file2.toString(), "json");
+        assertThat(expectedOutputFile.toFile()).exists();
+    }
+
 }
