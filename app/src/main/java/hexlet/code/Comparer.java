@@ -17,7 +17,6 @@ public class Comparer {
         keys.addAll(map1.keySet());
         keys.addAll(map2.keySet());
 
-
         for (String key : keys) {
 
             if (!map1.containsKey(key)) {
@@ -48,7 +47,6 @@ public class Comparer {
                     condition.put("Old value", map1.get(key));
                     condition.put("New value", map2.get(key));
                     comparedMap.put(key, condition);
-
                 }
             }
         }

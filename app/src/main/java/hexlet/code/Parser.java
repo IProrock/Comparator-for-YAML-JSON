@@ -13,9 +13,9 @@ import java.util.ArrayList;
 public class Parser {
     public static List<Map<String, Object>> parseToMap(Path pathToFile1, Path pathToFile2) throws Exception {
 
-        Map<String, Object> map1 = new HashMap<>();
-        Map<String, Object> map2 = new HashMap<>();
-        List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+        Map<String, Object> parsedMap1 = new HashMap<>();
+        Map<String, Object> parsedMap2 = new HashMap<>();
+        List<Map<String, Object>> listOfParsedMaps = new ArrayList<Map<String, Object>>();
 
         ObjectMapper mapper = new ObjectMapper();
 
@@ -23,11 +23,11 @@ public class Parser {
             mapper = new YAMLMapper();
         }
 
-        map1 = mapper.readValue(pathToFile1.toFile(), new TypeReference<Map<String, Object>>() { });
-        map2 = mapper.readValue(pathToFile2.toFile(), new TypeReference<Map<String, Object>>() { });
-        result.add(map1);
-        result.add(map2);
+        parsedMap1 = mapper.readValue(pathToFile1.toFile(), new TypeReference<Map<String, Object>>() { });
+        parsedMap2 = mapper.readValue(pathToFile2.toFile(), new TypeReference<Map<String, Object>>() { });
+        listOfParsedMaps.add(parsedMap1);
+        listOfParsedMaps.add(parsedMap2);
 
-        return result;
+        return listOfParsedMaps;
     }
 }

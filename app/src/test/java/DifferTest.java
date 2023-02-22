@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class DifferTest {
 
-    String expectedStylish = """
+    public static final String EXPECTED_STYLISH = """
             {
                 chars1: [a, b, c]
               - chars2: [d, e, f]
@@ -35,7 +35,7 @@ public class DifferTest {
               + setting3: none
             }""";
 
-    String expectedPlain = """
+    public static final String EXPECTED_PLAIN = """
             Property 'chars2' was updated. From [complex value] to false
             Property 'checked' was updated. From false to true
             Property 'default' was updated. From null to [complex value]
@@ -50,7 +50,8 @@ public class DifferTest {
             Property 'setting2' was updated. From 200 to 300
             Property 'setting3' was updated. From true to 'none'""";
 
-    String expectedJson = "{\"chars1\":{\"Status\":\"unchanged\",\"Old value\":[\"a\",\"b\",\"c\"],"
+    public static final String EXPECTED_JSON = "{\"chars1\":{\"Status\":\"unchanged\","
+            + "\"Old value\":[\"a\",\"b\",\"c\"],"
             + "\"New value\":[\"a\",\"b\",\"c\"]},\"chars2\":{\"Status\":\"changed\",\"Old value\":[\"d\",\"e\",\"f\"],"
             + "\"New value\":false},\"checked\":{\"Status\":\"changed\",\"Old value\":false,\"New value\":true},"
             + "\"default\":{\"Status\":\"changed\",\"Old value\":null,\"New value\":[\"value1\",\"value2\"]},"
@@ -71,9 +72,9 @@ public class DifferTest {
 
         Path file1 = Paths.get("./src/test/resources/file1.json").toAbsolutePath().normalize();
         Path file2 = Paths.get("./src/test/resources/file2.json").toAbsolutePath().normalize();
-        assertThat(Differ.generate(file1.toString(), file2.toString(), "stylish")).isEqualTo(expectedStylish);
-        assertThat(Differ.generate(file1.toString(), file2.toString(), "plain")).isEqualTo(expectedPlain);
-        assertThat(Differ.generate(file1.toString(), file2.toString(), "json")).isEqualTo(expectedJson);
+        assertThat(Differ.generate(file1.toString(), file2.toString(), "stylish")).isEqualTo(EXPECTED_STYLISH);
+        assertThat(Differ.generate(file1.toString(), file2.toString(), "plain")).isEqualTo(EXPECTED_PLAIN);
+        assertThat(Differ.generate(file1.toString(), file2.toString(), "json")).isEqualTo(EXPECTED_JSON);
 
     }
 
@@ -81,9 +82,9 @@ public class DifferTest {
     public void testYmlValidCase() throws Exception {
         Path file1 = Paths.get("./src/test/resources/file1.yml").toAbsolutePath().normalize();
         Path file2 = Paths.get("./src/test/resources/file2.yml").toAbsolutePath().normalize();
-        assertThat(Differ.generate(file1.toString(), file2.toString(), "stylish")).isEqualTo(expectedStylish);
-        assertThat(Differ.generate(file1.toString(), file2.toString(), "plain")).isEqualTo(expectedPlain);
-        assertThat(Differ.generate(file1.toString(), file2.toString(), "json")).isEqualTo(expectedJson);
+        assertThat(Differ.generate(file1.toString(), file2.toString(), "stylish")).isEqualTo(EXPECTED_STYLISH);
+        assertThat(Differ.generate(file1.toString(), file2.toString(), "plain")).isEqualTo(EXPECTED_PLAIN);
+        assertThat(Differ.generate(file1.toString(), file2.toString(), "json")).isEqualTo(EXPECTED_JSON);
     }
 
 }

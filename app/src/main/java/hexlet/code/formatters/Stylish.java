@@ -14,16 +14,18 @@ public class Stylish {
 
             if (value.get("Status").equals("added")) {
                 resultStringJoiner.add("  + " + entry.getKey() + ": " + value.get("New value"));
+
             } else if (value.get("Status").equals("removed")) {
                 resultStringJoiner.add("  - " + entry.getKey() + ": " + value.get("Old value"));
+
             } else if (value.get("Status").equals("unchanged")) {
                 resultStringJoiner.add("    " + entry.getKey() + ": " + value.get("Old value"));
+
             } else if (value.get("Status").equals("changed")) {
                 resultStringJoiner.add("  - " + entry.getKey() + ": " + value.get("Old value"));
                 resultStringJoiner.add("  + " + entry.getKey() + ": " + value.get("New value"));
             }
         }
-
         return resultStringJoiner.toString();
     }
 }

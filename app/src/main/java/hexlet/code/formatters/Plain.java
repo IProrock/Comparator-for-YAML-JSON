@@ -12,39 +12,39 @@ public class Plain {
 
         for (Map.Entry<String, Map<String, Object>> entry : map.entrySet()) {
 
-            Object val1 = "";
-            Object val2 = "";
+            Object oVal = "";
+            Object nVal = "";
 
             if ((entry.getValue().get("Old value") instanceof Collection<?>)
                     || (entry.getValue().get("Old value") instanceof Map<?, ?>))  {
-                val1 = "[complex value]";
+                oVal = "[complex value]";
             } else {
-                val1 = entry.getValue().get("Old value");
+                oVal = entry.getValue().get("Old value");
             }
 
             if ((entry.getValue().get("New value") instanceof Collection<?>)
                     || (entry.getValue().get("New value") instanceof Map<?, ?>)) {
-                val2 = "[complex value]";
+                nVal = "[complex value]";
             } else {
-                val2 = entry.getValue().get("New value");
+                nVal = entry.getValue().get("New value");
             }
 
             if (entry.getValue().get("Old value") instanceof String) {
-                val1 = "'" + val1 + "'";
+                oVal = "'" + oVal + "'";
             }
 
             if (entry.getValue().get("New value") instanceof  String) {
-                val2 = "'" + val2 + "'";
+                nVal = "'" + nVal + "'";
             }
 
 
 
             if (entry.getValue().get("Status").equals("changed")) {
-                resultStringJoiner.add("Property '" + entry.getKey() + "' was updated. From " + val1 + " to " + val2);
+                resultStringJoiner.add("Property '" + entry.getKey() + "' was updated. From " + oVal + " to " + nVal);
             } else if (entry.getValue().get("Status").equals("removed")) {
                 resultStringJoiner.add("Property '" + entry.getKey() + "' was removed");
             } else if (entry.getValue().get("Status").equals("added")) {
-                resultStringJoiner.add("Property '" + entry.getKey() + "' was added with value: " + val2);
+                resultStringJoiner.add("Property '" + entry.getKey() + "' was added with value: " + nVal);
             }
 
         }

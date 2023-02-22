@@ -8,16 +8,18 @@ import java.util.Map;
 
 public class Formatter {
 
-    public static String getFormatedString(Map<String, Map<String, Object>> resultMap, String format) {
+    public static String getFormatedString(Map<String, Map<String, Object>> comparedMap, String format) {
 
         String result = "";
 
         if (format.equals("stylish")) {
-            result = Stylish.getFormattedString(resultMap);
+            result = Stylish.getFormattedString(comparedMap);
+
         } else if (format.equals("plain")) {
-            result = Plain.getFormattedString(resultMap);
+            result = Plain.getFormattedString(comparedMap);
+
         } else if (format.equals("json")) {
-            result = Json.getJsonFile(resultMap);
+            result = Json.getFormattedString(comparedMap);
         }
 
         return result;
