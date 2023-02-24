@@ -8,20 +8,20 @@ import java.util.Map;
 
 public class Formatter {
 
-    public static String getFormatedString(Map<String, Map<String, Object>> comparedMap, String format) {
+    public static String getFormattedStr(Map<String, Map<String, Object>> comparedMap, String format) throws Exception {
 
-        String result = "";
+        switch (format) {
+            case "stylish":
+                return Stylish.getFormattedString(comparedMap);
 
-        if (format.equals("stylish")) {
-            result = Stylish.getFormattedString(comparedMap);
+            case "plain":
+                return Plain.getFormattedString(comparedMap);
 
-        } else if (format.equals("plain")) {
-            result = Plain.getFormattedString(comparedMap);
+            case "json":
+                return Json.getFormattedString(comparedMap);
 
-        } else if (format.equals("json")) {
-            result = Json.getFormattedString(comparedMap);
+            default:
+                throw new Exception("Unknown format: " + format);
         }
-
-        return result;
     }
 }

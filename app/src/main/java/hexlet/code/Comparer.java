@@ -33,21 +33,19 @@ public class Comparer {
                 condition.put("New value", null);
                 comparedMap.put(key, condition);
 
-            } else {
-                if (Objects.equals((map1.get(key)), (map2.get(key)))) {
-                    Map<String, Object> condition = new HashMap<>();
-                    condition.put("Status", "unchanged");
-                    condition.put("Old value", map1.get(key));
-                    condition.put("New value", map2.get(key));
-                    comparedMap.put(key, condition);
+            } else if (Objects.equals((map1.get(key)), (map2.get(key)))) {
+                Map<String, Object> condition = new HashMap<>();
+                condition.put("Status", "unchanged");
+                condition.put("Old value", map1.get(key));
+                condition.put("New value", map2.get(key));
+                comparedMap.put(key, condition);
 
-                } else {
-                    Map<String, Object> condition = new HashMap<>();
-                    condition.put("Status", "changed");
-                    condition.put("Old value", map1.get(key));
-                    condition.put("New value", map2.get(key));
-                    comparedMap.put(key, condition);
-                }
+            } else {
+                Map<String, Object> condition = new HashMap<>();
+                condition.put("Status", "changed");
+                condition.put("Old value", map1.get(key));
+                condition.put("New value", map2.get(key));
+                comparedMap.put(key, condition);
             }
         }
         return comparedMap;

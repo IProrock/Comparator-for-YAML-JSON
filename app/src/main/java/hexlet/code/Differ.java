@@ -3,7 +3,6 @@ package hexlet.code;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.Map;
 
 public class Differ {
@@ -12,6 +11,8 @@ public class Differ {
 
         Path pathToFile1 = Paths.get(file1).toAbsolutePath().normalize();
         Path pathToFile2 = Paths.get(file2).toAbsolutePath().normalize();
+        Map<String, Object> parsedMap1;
+        Map<String, Object> parsedMap2;
         Map<String, Map<String, Object>> comparedMap;
         String result = "";
 
@@ -22,14 +23,27 @@ public class Differ {
             throw new Exception("File " + pathToFile2 + " doesn't exist.");
         }
 
-        List<Map<String, Object>> listOfParsedMaps = Parser.parseToMap(pathToFile1, pathToFile2);
-        comparedMap = Comparer.compareMaps(listOfParsedMaps.get(0), listOfParsedMaps.get(1));
-        result = Formatter.getFormatedString(comparedMap, format);
+        parsedMap1 = Parser.parseToMap(Files.readString(pathToFile1), getDataType(file1));
+        parsedMap2 = Parser.parseToMap(Files.readString(pathToFile2), getDataType(file2));
+        comparedMap = Comparer.compareMaps(parsedMap1, parsedMap2);
+
+        result = Formatter.getFormattedStr(comparedMap, format);
 
         return result;
     }
 
+
     public static String generate(String file1, String file2) throws Exception {
         return generate(file1, file2, "stylish");
+    }
+
+
+    private static String getDataType(String dataSource) {
+        String dataType = "json";
+
+        if (dataSource.endsWith("yml")) {
+            dataType = "yml";
+        }
+        return dataType;
     }
 }
