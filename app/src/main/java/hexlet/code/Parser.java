@@ -10,10 +10,19 @@ public class Parser {
     public static Map<String, Object> parseToMap(String dataToParse, String dataType) throws Exception {
 
         Map<String, Object> parsedMap;
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper;
 
-        if (dataType.equals("yml")) {
-            mapper = new YAMLMapper();
+        switch (dataType) {
+            case "json":
+                mapper = new ObjectMapper();
+                break;
+
+            case "yml": case "yaml":
+                mapper = new YAMLMapper();
+                break;
+
+            default:
+                throw new Exception("Unknown file extension: " + dataType);
         }
 
         parsedMap = mapper.readValue(dataToParse, new TypeReference<Map<String, Object>>() { });

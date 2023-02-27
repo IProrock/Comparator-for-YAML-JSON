@@ -38,12 +38,11 @@ public class Differ {
     }
 
 
-    private static String getDataType(String dataSource) {
-        String dataType = "json";
+    private static String getDataType(String pathToFile) {
+        int indexOfExtension = pathToFile.lastIndexOf(".");
 
-        if (dataSource.endsWith("yml")) {
-            dataType = "yml";
-        }
-        return dataType;
+        return indexOfExtension > 0
+                ? pathToFile.substring(indexOfExtension + 1)
+                : "";
     }
 }
