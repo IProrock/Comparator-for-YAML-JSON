@@ -9,7 +9,6 @@ import java.util.Map;
 public class Parser {
     public static Map<String, Object> parseToMap(String dataToParse, String dataType) throws Exception {
 
-        Map<String, Object> parsedMap;
         ObjectMapper mapper;
 
         switch (dataType) {
@@ -25,7 +24,7 @@ public class Parser {
                 throw new Exception("Unknown file extension: " + dataType);
         }
 
-        parsedMap = mapper.readValue(dataToParse, new TypeReference<Map<String, Object>>() { });
+        Map<String, Object> parsedMap = mapper.readValue(dataToParse, new TypeReference<Map<String, Object>>() { });
 
         return parsedMap;
     }

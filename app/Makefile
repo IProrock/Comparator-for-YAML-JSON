@@ -9,3 +9,13 @@ run-dist-invalid:
 
 report:
 	./gradlew jacocoTestReport
+
+test:
+	./gradlew test
+
+build:
+	./gradlew build
+
+
+
+.PHONY: build

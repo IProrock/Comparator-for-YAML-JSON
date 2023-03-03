@@ -11,10 +11,6 @@ public class Differ {
 
         Path pathToFile1 = Paths.get(file1).toAbsolutePath().normalize();
         Path pathToFile2 = Paths.get(file2).toAbsolutePath().normalize();
-        Map<String, Object> parsedMap1;
-        Map<String, Object> parsedMap2;
-        Map<String, Map<String, Object>> comparedMap;
-        String result = "";
 
         if (!Files.exists(pathToFile1)) {
             throw new Exception("File " + pathToFile1 + " doesn't exist.");
@@ -23,11 +19,11 @@ public class Differ {
             throw new Exception("File " + pathToFile2 + " doesn't exist.");
         }
 
-        parsedMap1 = Parser.parseToMap(Files.readString(pathToFile1), getDataType(file1));
-        parsedMap2 = Parser.parseToMap(Files.readString(pathToFile2), getDataType(file2));
-        comparedMap = Comparer.compareMaps(parsedMap1, parsedMap2);
+        Map<String, Object> parsedMap1 = Parser.parseToMap(Files.readString(pathToFile1), getDataType(file1));
+        Map<String, Object> parsedMap2 = Parser.parseToMap(Files.readString(pathToFile2), getDataType(file2));
+        Map<String, Map<String, Object>> comparedMap = Comparer.compareMaps(parsedMap1, parsedMap2);
 
-        result = Formatter.getFormattedStr(comparedMap, format);
+        String result = Formatter.getFormattedStr(comparedMap, format);
 
         return result;
     }
